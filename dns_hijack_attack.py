@@ -33,14 +33,12 @@ def listen_packets(packet_lengths, lock):
         proc.terminate()
 
 
-def check_consecutive_lengths(packet_lengths):
-    global CHALLENGE_ACK_LENGTH
-    packet_lengths.sort()
-    print(packet_lengths)
-    for i in range(len(packet_lengths) - 1):
-        if packet_lengths[i + 1] - packet_lengths[i] == CHALLENGE_ACK_LENGTH:
-            return True, packet_lengths[i + 1]
-    return False, 0
+def check_consecutive_lengths(analyze_list):
+    if len(analyze_list) < 1:
+        return False, None
+    else:
+        analyze_list.sort(reverse=True)
+        return True, analyze_list[0]
 
 
 def guess_src_port_multi_bin():
